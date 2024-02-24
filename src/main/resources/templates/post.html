@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pasta with Pesto and Tomatoes</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            transition: all 0.2s ease;
+        }
+        
+         :root {
+            --color-bg: #f6f6f6;
+            --color-accent: #e2c6e9;
+            --color-primary: #805b7b;
+        }
+        
+        html,
+        body {
+            background: var(--color-primary);
+            scroll-behavior: smooth;
+        }
+        
+        section {
+            background: var(--color-bg);
+            width: calc(100% - 80px);
+            height: calc(100% - 80px);
+            min-height: calc(100vh - 80px);
+            position: relative;
+            margin: 40px auto;
+            overflow: hidden;
+        }
+        
+        section#cover span.side {
+            position: absolute;
+            height: 100%;
+            background: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 48px 24px;
+            border-right: 1px solid var(--color-primary);
+            z-index: 100;
+            font-family: "Playfair Display", serif;
+        }
+        
+        section#cover span.side h2 {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: 18px;
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        
+        section#cover span.side svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--color-primary);
+        }
+        
+        section#cover .content {
+            position: absolute;
+            width: calc(100% - 160px);
+            height: 100%;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        section h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 56px;
+            line-height: 110%;
+            align-items: center;
+            flex: 3;
+            display: flex;
+            position: relative;
+            padding-right: 80px;
+        }
+        
+        section h1:before {
+            position: absolute;
+            content: "";
+            width: 80px;
+            height: 6px;
+            background: var(--color-primary);
+            bottom: 0;
+        }
+        
+        section#cover .content span {
+            font-style: italic;
+            letter-spacing: 1px;
+            font-size: 24px;
+            font-weight: 400;
+            flex: 2;
+            display: flex;
+            align-items: center;
+        }
+        
+        section#cover .content span a {
+            text-decoration: none;
+            color: var(--color-accent);
+        }
+        
+        section#cover .content figure {
+            width: 100%;
+            height: 60%;
+            flex: 3;
+            position: relative;
+        }
+        
+        section#cover .content figure img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        figcaption {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 100;
+            color: var(--color-bg);
+            font-family: "Lato", serif;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 16px 32px;
+            opacity: 0.6;
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+        }
+        
+        section#recipe {
+            background: var(--color-bg);
+            color: var(--color-primary);
+            font-family: "Playfair Display", serif;
+            font-size: 18px;
+            line-height: 160%;
+        }
+        
+        section#recipe .overview {
+            border: 1px solid red;
+            width: 100%;
+        }
+        
+        section#recipe .description {
+            width: 100%;
+            padding: 40px 0;
+        }
+        
+        section#recipe .recipe_details {
+            width: 100%;
+        }
+        
+        section#recipe {
+            padding: 80px;
+        }
+        
+        section#recipe h1 {
+            padding-bottom: 56px;
+        }
+        
+        section#recipe .recipe_details ul {
+            list-style: none;
+            background: var(--color-primary);
+            color: var(--color-accent);
+            display: flex;
+            padding: 24px 0;
+        }
+        
+        section#recipe .recipe_details ul li {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: "Playfair Display", serif;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+        
+        section#recipe .recipe_details ul li span,
+        section#recipe .recipe-content>div>h2 {
+            font-family: "Lato", serif;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-style: normal;
+        }
+        
+        section#recipe .recipe-content {
+            width: 100%;
+            display: flex;
+            margin-top: 56px;
+        }
+        
+        section#recipe .recipe-content>div {
+            width: 50%;
+        }
+        
+        section#recipe .recipe-content>div>h2 {
+            margin-bottom: 32px;
+        }
+        
+        section#recipe .recipe-content .ing-list {
+            padding-right: 56px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        section#recipe .recipe-content .recipe-list {
+            padding-left: 56px;
+        }
+        
+        section#recipe .recipe-content>div>h2 {
+            font-weight: 900;
+        }
+        
+        section#recipe .recipe-content>div:first-of-type {
+            border-right: 1px solid var(--color-primary);
+        }
+        
+        section#recipe .recipe-content .ingredients {
+            margin-bottom: 24px;
+        }
+        
+        section#recipe .recipe-content .ing-list figure img {
+            width: 100%;
+        }
+        
+        section#recipe .recipe-content .ing-list figure {
+            width: 100%;
+            flex: 1;
+            position: relative;
+        }
+        
+        section#recipe .recipe-content .ing-list figure img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        p.variation {
+            font-size: 16px;
+            margin-bottom: 48px;
+        }
+        
+        p.variation span {
+            font-family: "Lato", serif;
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-style: normal;
+        }
+        
+        ol {
+            list-style: none;
+            counter-reset: counter;
+            margin: 0;
+            padding: 0;
+            margin-left: 40px;
+        }
+        
+        ol>li {
+            counter-increment: counter;
+            margin-bottom: 16px;
+            width: 100%;
+            position: relative;
+        }
+        
+        ol>li::before {
+            content: counter(counter) ".";
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 1rem;
+            color: var(--color-accent);
+            font-family: "Playfair Display", serif;
+            /*    border: 1px solid green;*/
+            min-width: 48px;
+            max-width: 48px;
+            position: absolute;
+            margin-left: -64px;
+            text-align: right;
+        }
+        
+        ol>li>ul {
+            margin-left: 24px;
+            list-style-type: square;
+            margin-top: 16px;
+        }
+        
+        ol>li>ul>li {
+            margin-bottom: 8px;
+        }
+        
+        .container {
+            display: block;
+            position: relative;
+            padding-left: 32px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Hide the browser's default checkbox */
+        
+        .container input {
+            display: none;
+        }
+        /* Create a custom checkbox */
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 16px;
+            width: 16px;
+            background-color: transparent;
+            border: 2px solid var(--color-primary);
+            margin-top: 8px;
+        }
+        /* On mouse-over, add a grey background color */
+        
+        .container:hover input~.checkmark {
+            background-color: var(--color-primary);
+        }
+        /* Create the checkmark/indicator (hidden when not checked) */
+        
+        .checkmark:after {
+            content: "\2713";
+            position: absolute;
+            display: none;
+        }
+        /* Show the checkmark when checked */
+        
+        .container input:checked~.checkmark:after {
+            display: block;
+        }
+        /* Style the checkmark/indicator */
+        
+        .container .checkmark:after {
+            background: var(--color-primary);
+            font-size: 12px;
+            line-height: 12px;
+            width: 12px;
+            height: 12px;
+            text-align: center;
+            color: var(--color-bg);
+        }
+        /* MEDIA QUERIES */
+        
+        @media screen and (max-width: 768px) {
+            section {
+                width: calc(100% - 48px);
+                height: calc(100% - 48px);
+                min-height: calc(100vh - 48px);
+                margin: 24px auto;
+            }
+            section#recipe {
+                padding: 56px 40px;
+            }
+            section#cover .content {
+                width: calc(100% - 80px);
+            }
+            section h1 {
+                font-size: 40px;
+                padding: 0 32px;
+            }
+            section#recipe h1 {
+                padding: 0 0 56px 0;
+            }
+            section#cover .content span {
+                font-size: 22px;
+                padding: 0 32px;
+            }
+            section#recipe .recipe-content {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-top: 56px;
+            }
+            section#recipe .recipe-content>div {
+                width: 100%;
+            }
+            section#recipe .recipe-content>div:first-of-type {
+                border-right: none;
+                border-bottom: 6px solid var(--color-primary);
+            }
+            section#recipe .recipe-content .ing-list {
+                padding-right: 0;
+                padding-bottom: 56px;
+            }
+            section#recipe .recipe-content .recipe-list {
+                padding-left: 0;
+                padding-top: 56px;
+            }
+            section#recipe .recipe_details ul {
+                background: var(--color-primary);
+                display: flex;
+                flex-wrap: wrap;
+                padding: 24px 0;
+            }
+            section#recipe .recipe_details ul li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                min-width: 50%;
+                padding: 24px;
+            }
+        }
+        
+        #footer {
+            position: static;
+            width: 100%;
+            /* Прозрачный фон */
+            padding: 0px;
+            text-align: center;
+            z-index: 999;
+        }
+        
+        .triangle_bottom {
+            height: 150px;
+            width: 100%;
+            background-color: rgb(219, 174, 187);
+            clip-path: polygon(50% 0, 100% 50%, 100% 100%, 0 200%, 0 50%);
+        }
+        
+        .side:hover h2 {
+            color: rgb(168, 105, 147);
+        }
+        
+        #likeButton {
+            background-color: transparent;
+            font-size: 32px;
+            margin-left: 10px;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="cover">
+
+        <span class="side" onclick="redirectToAnotherPage()">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            
+            <h2>Вернуться назад</h2>
+        </span>
+
+        <script>
+            function redirectToAnotherPage() {
+
+                var nextPageFileName = "index.html";
+
+
+                window.location.href = nextPageFileName;
+            }
+        </script>
+
+        <div class="content">
+
+            <figure>
+                <img src="https://kartinki.pics/uploads/posts/2021-07/1626136963_44-kartinkin-com-p-klubnichnii-pirog-iz-pesochnogo-testa-yeda-52.jpg" alt="Cake">
+                <figcaption>Photo by Den</figcaption>
+            </figure>
+
+            <h1>Cake <button id="likeButton" onclick="toggleLike()">&#10084</button><button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button></h1>
+
+
+
+
+
+            <span><a href="#recipe">Рецепт &#10549;</a></span>
+
+        </div>
+    </section>
+    <script>
+        let isLiked = false;
+
+        function toggleLike() {
+            const likeButton = document.getElementById('likeButton');
+
+
+            if (isLiked) {
+                likeButton.style.color = 'black';
+
+                isLiked = false;
+            } else {
+                likeButton.style.color = 'red';
+
+                isLiked = true;
+            }
+
+
+        }
+    </script>
+    <section id="recipe">
+        <h1>Cake</h1>
+        <div class="description">
+            <p>Этот быстрый и вкусный пирог - идеальный способ использовать изобилие свежих фруктов летом!</p>
+            <p>Не имеете руки для выпечки? Не беспокойтесь! Вы сможете приготовить этот восхитительный пирог за мгновение с помощью готового пирожного теста из магазина. </p>
+        </div>
+
+        <div class="recipe_details">
+            <ul>
+                <li><span>Servings</span>4</li>
+                <li><span>Prep Time</span>5 min</li>
+                <li><span>Cook Time</span>25 min</li>
+                <li><span>Total Time</span>30 min</li>
+            </ul>
+        </div>
+
+        <div class="recipe-content">
+            <div class="ing-list">
+                <h2>The Ingredients</h2>
+                <div class="ingredients">
+                    <label class="container">8 что-то
+                        <input type="checkbox" checked="checked">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">2 что то
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">2 что то
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">2 что то
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">1/2 денчика
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">1/2 пиыв
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">1/8 максика
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container">1 ева
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label> <label class="container">1 мяу
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <p class="variation"><span>Variation:</span> Если че в магазине купите пирог готовый, не тупите</p>
+                <figure>
+                    <img src="https://receptikk.ru/800/600/https/images.squarespace-cdn.com/content/59876b7417bffc6a271eba33/1507830198859-6UZGY91TWY8SQX9KS5GW/Raspberry+pie_1.jpg">
+
+                    <figcaption>Photo by Max</figcaption>
+                </figure>
+
+            </div>
+
+            <div class="recipe-list">
+                <h2>The Process</h2>
+                <ol class="instructions">
+                    <li>Разогрейте духовку до 200°C. </li>
+                    <li>Разверните слоеное тесто на противне, покрытом пергаментной бумагой.
+                        <ul>
+                            <li>Нарежьте персики тонкими ломтиками и выложите их в центр теста, оставляя примерно 5 см от краев.</li>
+                            <li>В миске смешайте сахар, муку, сок лимона, корицу и имбирь. Посыпьте эту смесь персиками.</li>
+                            <li>Аккуратно сложите края теста над начинкой, чтобы сформировать края пирога. </li>
+                            <li>Смажьте верхнюю часть теста взбитым яйцом. </li>
+                            <li>Печьте пирог в предварительно разогретой духовке около 25-30 минут, или пока тесто не станет золотистым и начинка не будет пузыриться и слегка карамелизироваться.</li>
+                        </ul>
+                    </li>
+                    <li>Дайте пирогу немного остыть перед подачей. Подавайте его теплым или в прохладе, посыпанным сахарной пудрой или сопровожденным шариком мороженого. Приятного аппетита! </li>
+
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="triangle_bottom"></div>
+    </footer>
+
+
+</body>
+
+
+</html>

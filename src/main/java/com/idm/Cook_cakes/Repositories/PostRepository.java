@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByOrderByDateDesc();
-    List<Post> findAllByOrderByLikesDesc();
+    List<Post> findTop6ByOrderByLikesDesc();
 }

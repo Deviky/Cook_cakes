@@ -1,0 +1,46 @@
+
+
+.Main_Grid_Container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  height: auto;
+  display: grid; /* Применяем grid */
+  grid-template-columns: repeat(3, 1fr); /* Три колонки одинаковой ширины */
+  gap: 10px; /* Промежуток между элементами */
+  justify-items: center; /* Центрируем элементы по горизонтали */
+  align-items: center; /* Центрируем элементы по вертикали */
+}
+  
+  .item_Grid {
+    width: 200px;
+    height: 200px;
+    position: relative; /* Добавим позиционирование для overlay */
+  }
+  
+  .item_Grid img {
+    max-width: 100%; /* Убеждаемся, что изображение не превышает ширину родительского блока */
+    max-height: 100%; /* Убеждаемся, что изображение не превышает высоту родительского блока */
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Задаем прозрачный черный цвет */
+    opacity: 0; /* Изначально скрываем overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease; /* Плавное появление overlay */
+  }
+  
+  .item_Grid:hover .overlay {
+    opacity: 1; /* Показываем overlay при наведении на изображение */
+  }
+  
+  .overlay p {
+    color: white; /* Цвет текста */
+    font-size: 18px; /* Размер шрифта */
+  }

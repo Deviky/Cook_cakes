@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/header.css}" />
+    <title>Login and Signup Form</title>
+    <style>
+        body {
+            background-color: #e9e1e9;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+        }
+        
+        header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .Registration_window {
+            text-align: right;
+            margin-right: 5%;
+            color: #333;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-content a {
+            text-decoration: none;
+            color: #272626;
+            font-weight: bold;
+        }
+        
+        .header-content .logo {
+            color: #272626;
+            font-size: 1.5rem;
+        }
+        
+        .container {
+            /*border:1px solid white;*/
+            width: 600px;
+            height: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: inline-flex;
+        }
+        
+        .backbox {
+            background-color: #a36d84;
+            width: 100%;
+            height: 80%;
+            border: 2px solid #463543;
+            border-radius: 20px;
+            position: absolute;
+            transform: translate(0, -50%);
+            top: 50%;
+            display: inline-flex;
+        }
+        
+        .frontbox {
+            background-color: #cf9cb1;
+            border-radius: 20px;
+            height: 100%;
+            width: 50%;
+            z-index: 10;
+            border: 2px solid #dabfcf;
+            position: absolute;
+            right: 0;
+            margin-right: 3%;
+            margin-left: 3%;
+            transition: right .8s ease-in-out;
+        }
+        
+        .moving {
+            right: 45%;
+        }
+        
+        .loginMsg,
+        .signupMsg {
+            width: 50%;
+            height: 100%;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        
+        .loginMsg .title,
+        .signupMsg .title {
+            font-weight: 300;
+            font-size: 23px;
+        }
+        
+        .loginMsg p,
+        .signupMsg p {
+            font-weight: 100;
+        }
+        
+        .textcontent {
+            color: white;
+            margin-top: 65px;
+            margin-left: 12%;
+        }
+        
+        .loginMsg button,
+        .signupMsg button {
+            background-color: #7c647e;
+            border: 2px solid rgb(199, 183, 195);
+            border-radius: 10px;
+            color: white;
+            font-size: 12px;
+            box-sizing: content-box;
+            font-weight: 300;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        /* front box content*/
+        
+        .login,
+        .signup {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .login h2,
+        .signup h2 {
+            color: #f5ebf4;
+            font-size: 22px;
+        }
+        
+        .inputbox {
+            margin-top: 30px;
+        }
+        
+        .login input,
+        .signup input {
+            display: block;
+            width: 100%;
+            height: 40px;
+            background-color: #f2f2f2;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+        
+        .login button,
+        .signup button {
+            background-color: #744461;
+            border: 2px solid rgb(29, 26, 28);
+            color: white;
+            font-size: 12px;
+            font-weight: 300;
+            box-sizing: content-box;
+            padding: 10px;
+            border-radius: 10px;
+            width: 60px;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            cursor: pointer;
+        }
+        /* Fade In & Out*/
+        
+        .login p {
+            cursor: pointer;
+            color: #404040;
+            font-size: 15px;
+        }
+        
+        .loginMsg,
+        .signupMsg {
+            /*opacity: 1;*/
+            transition: opacity .8s ease-in-out;
+        }
+        
+        .visibility {
+            opacity: 0;
+        }
+        
+        .hide {
+            display: none;
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 0;
+            margin-top: 400px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0);
+            /* Прозрачный фон */
+            /* padding: 10px; */
+            text-align: center;
+            z-index: 999;
+        }
+        
+        .triangle_bottom {
+            height: 150px;
+            width: 100%;
+            background-color: rgb(219, 174, 187);
+            clip-path: polygon(50% 0, 100% 50%, 100% 100%, 0 200%, 0 50%);
+        }
+    </style>
+</head>
+<header>
+    <div class="Header_Grid">
+        <div class="Sing_In_window">
+            <a th:href="@{/}"/>Вернуться на главную</a>
+        </div>
+        <div class="Plus_window">
+            <div class="Header_Oval"></div>
+        </div>
+    </div>
+</header>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="backbox">
+            <div class="loginMsg">
+                <div class="textcontent">
+                    <p class="title">Don't have an account?</p>
+                    <p>Sign up to save all your graph.</p>
+                    <button id="switch1">Sign Up</button>
+                </div>
+            </div>
+            <div class="signupMsg visibility">
+                <div class="textcontent">
+                    <p class="title">Have an account?</p>
+                    <p>Log in to see all your collection.</p>
+                    <button id="switch2">LOG IN</button>
+                </div>
+            </div>
+        </div>
+        <!-- backbox -->
+
+        <div class="frontbox">
+            <form th:action="@{/auth/submitlog}" th:object="${user}" method="post" class="login">
+                <h2>LOG IN</h2>
+                <div class="inputbox">
+                    <input type="text" name="email" placeholder="  EMAIL" th:field="*{username}" required>
+                    <input type="password" name="password" placeholder="  PASSWORD" th:field="*{password}" required>
+                </div>
+                <button>LOG IN</button>
+            </form>
+
+            <form th:action="@{/auth/submitreg}" th:object="${newuser}" method="post" class="signup hide">
+                <h2>SIGN UP</h2>
+                <div class="inputbox">
+                    <input type="text" name="fullname" placeholder="  FULLNAME" th:field="*{nickname}" required>
+                    <input type="text" name="email" placeholder="  EMAIL" th:field="*{username}" required>
+                    <input type="password" name="password" placeholder="  PASSWORD" th:field="*{password}" required>
+                    <input type="password" name="passwordAnother" placeholder="  REPEAT PASSWORD" th:value="${passwordAnother}" required>
+                </div>
+                <button>SIGN UP</button>
+            </form>
+        </div>
+        <!-- frontbox -->
+    </div>
+
+    <footer id="footer">
+        <div class="triangle_bottom"></div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var $loginMsg = $('.loginMsg'),
+                $login = $('.login'),
+                $signupMsg = $('.signupMsg'),
+                $signup = $('.signup'),
+                $frontbox = $('.frontbox');
+
+            var autoSwitchInterval; // Переменная для хранения интервала автоматического переключения
+            var autoSwitch = true; // Флаг для управления автоматическим переключением
+
+            // Функция для переключения форм
+            function switchForms() {
+                $loginMsg.toggleClass("visibility");
+                $frontbox.toggleClass("moving");
+                $signupMsg.toggleClass("visibility");
+                $signup.toggleClass('hide');
+                $login.toggleClass('hide');
+            }
+
+            // Функция для запуска или остановки автоматического переключения
+            function toggleAutoSwitch() {
+                if (autoSwitch) {
+                    autoSwitchInterval = setInterval(function() {
+                        switchForms();
+                    }, 3000);
+                } else {
+                    clearInterval(autoSwitchInterval);
+                }
+            }
+
+            // Обработчики кликов по кнопкам переключения
+            $('#switch1').on('click', function() {
+                switchForms();
+                autoSwitch = false;
+                toggleAutoSwitch();
+            });
+
+            $('#switch2').on('click', function() {
+                switchForms();
+                autoSwitch = false;
+                toggleAutoSwitch();
+            });
+
+
+            toggleAutoSwitch();
+        });
+    </script>
+</body>
+
+</html>

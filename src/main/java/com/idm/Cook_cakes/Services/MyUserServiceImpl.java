@@ -20,6 +20,11 @@ public class MyUserServiceImpl implements MyUserService{
     }
 
     @Override
+    public MyUser findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname);
+    }
+
+    @Override
     public MyUser findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

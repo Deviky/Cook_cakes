@@ -5,7 +5,6 @@ import com.idm.Cook_cakes.Repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +24,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAllPopularPosts() {
-        List<Post> posts = postRepository.findAllByOrderByLikesDesc();
+        List<Post> posts = postRepository.findTop6ByOrderByLikesDesc();
         if (posts.size()>6)
             return posts.subList(0,6);
         else

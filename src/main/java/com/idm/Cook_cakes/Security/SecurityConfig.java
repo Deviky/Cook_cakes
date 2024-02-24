@@ -2,6 +2,7 @@ package com.idm.Cook_cakes.Security;
 
 
 
+import com.idm.Cook_cakes.Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,15 +36,15 @@ public class SecurityConfig implements WebMvcConfigurer {
                         authorizeRequests
                                 .requestMatchers("/addPost").authenticated()
                                 .requestMatchers("/updatePost").authenticated()
-                                .requestMatchers("/myProfile").authenticated()
+                                .requestMatchers("/profile").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .formLogin(loginConfigurer ->
                         loginConfigurer
-                                .loginPage("/login") // Своя страница входа
-                                .loginProcessingUrl("/submitlog") // Изменил адрес для обработки логина
-                                .defaultSuccessUrl("/", true) // URL при успешной аутентификации
-                                .failureUrl("/login?error=true") // URL при ошибке аутентификации
+                                .loginPage("/auth") // Своя страница входа
+                                .loginProcessingUrl("/auth/submitlog") // Изменил адрес для обработки логина
+                                .defaultSuccessUrl("/profile", true) // URL при успешной аутентификации
+                                .failureUrl("/auth") // URL при ошибке аутентификации
                                 .permitAll()
                 )
                 .logout(logoutConfigurer ->

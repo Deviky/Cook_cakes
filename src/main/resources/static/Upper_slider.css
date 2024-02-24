@@ -1,0 +1,150 @@
+
+
+
+.Upper_slider_content{
+    margin-top: 75px;
+    height: 500px;
+    background-color: #d0bece;
+  
+  }
+  
+  
+  
+  
+  
+  
+  .items {
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+  
+    width: 100%;
+    height: 100%;
+    transform: translate(0%, 0%);
+    user-select: none;
+  }
+  
+  .items .item {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+    z-index: -1;
+    opacity: 0;
+    background-color: #D9D9D9;
+    display: flex; /* Применяем flexbox */
+    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center; /* Центрируем по вертикали */
+    
+    
+  }
+  
+  .items .item img {
+    
+    display: block; /* Убеждаемся, что изображение является блочным элементом */
+    max-width: 100%; /* Убеждаемся, что изображение не превышает ширину родительского блока */
+    max-height: 100%; /* Убеждаемся, что изображение не превышает высоту родительского блока */
+    margin: auto; /* Центрируем изображение внутри блока */
+  }
+  .items {
+    position: relative; /* Для позиционирования overlay */
+}
+
+.item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Задаем прозрачный черный цвет */
+    opacity: 0; /* Изначально скрываем overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease; /* Плавное появление overlay */
+}
+
+.item:hover .overlay {
+    opacity: 1; /* Показываем overlay при наведении на изображение */
+}
+
+.overlay p {
+    color: white; /* Цвет текста */
+    font-size: 18px; /* Размер шрифта */
+}
+
+  
+  .item img {
+    width: 93%;
+    height: 95%;
+    object-fit: fill;
+  }
+  
+
+  .item.active {
+    box-shadow: 20px 9px rgba(0, 0, 0, 0.28);
+    opacity: 1;
+    z-index: 99;
+  }
+  
+  .item.prev {
+    z-index: 2;
+    opacity: 1.0;
+    transform: translate(-200%, 0%);
+    box-shadow: 20px 9px rgba(0, 0, 0, 0.28);
+  }
+  
+  .item.next {
+    z-index: 2;
+    opacity: 1.0;
+    transform: translate(100%, 0%);
+    box-shadow: 20px 9px rgba(0, 0, 0, 0.28);
+  }
+  
+  .items .button-container {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translate(0%, 150%);
+    width: 90%;
+    z-index: 100;
+  }
+  
+  .button-container .button {
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    position: relative;
+    opacity: 0.75;
+    transition: all 300ms ease-in-out;
+  }
+  
+  .button-container .button:hover {
+    opacity: 1;
+  }
+  
+  .button-container .button:before {
+    content: "";
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 50px;
+    height: 50px;
+    background-color: #D9D9D9;
+  
+    border-radius: 50%;
+    z-index: -99;
+  }
+  
+  .button-container .button:nth-child(1) {
+    float: left;
+  }
+  
+  .button-container .button:nth-child(2) {
+    float: right;
+  }

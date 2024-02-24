@@ -1,0 +1,45 @@
+header {
+    height: auto;
+    background: radial-gradient(circle, #D0BECE, rgb(223, 211, 211) 60%);
+}
+
+.Header_Grid {
+    height: auto;
+    background: radial-gradient(circle, #D0BECE, rgb(223, 211, 211) 60%);
+}
+
+a {
+    text-decoration: none;
+    font-family: "Klee One", cursive;
+    font-size: 150%;
+    color: #333;
+}
+
+.Header_Grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    height: 50px;
+}
+
+.Sing_In_window {
+    text-align: left;
+    margin-left: 2.5%;
+}
+
+.Registration_window {
+    text-align: right;
+    margin-right: 2.5%;
+    color: #333;
+}
+
+.Header_Oval {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: -50px;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(219, 174, 187);
+    border-radius: 10% 10% 60% 60%;
+}

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+    <link rel="stylesheet" type="text/css" href="css_files/basic.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../static/header.css" />
+    <link rel="stylesheet" type="text/css" href="../static/footer.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css_files/registration.css" /> -->
+
+    <title>Печеньки</title>
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+
+
+    <style>
+        footer {
+            position: absolute;
+            bottom: 0;
+            /* margin-top: 400px; */
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0);
+            /* Прозрачный фон */
+            /* padding: 10px; */
+            text-align: center;
+            z-index: 999;
+        }
+        
+        .triangle_bottom {
+            height: 150px;
+            width: 100%;
+            background-color: rgb(219, 174, 187);
+            clip-path: polygon(50% 0, 100% 50%, 100% 100%, 0 200%, 0 50%);
+        }
+        
+        p {
+            font-family: "Klee One", cursive;
+        }
+        
+        body {
+            background-color: #e9e1e9;
+        }
+        
+        .registration_form {
+            background-color: #D0BECE;
+            width: 60%;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 600px;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            justify-items: center;
+            /* Центрируем элементы по горизонтали */
+            align-items: center;
+            border: 2px solid #2b2929;
+            padding: 20px;
+            position: relative;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #D0BECE 45%, #612859ab 48%, #D0BECE 53%);
+            /* Центрируем элементы по вертикали */
+        }
+        
+        .registration_form::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 48%;
+            /* Размещаем псевдоэлемент в середине формы */
+            transform: translateX(-50%);
+            /* Центрируем по горизонтали относительно родительского элемента */
+            width: 1px;
+            /* Ширина линии */
+            background-color: #000;
+            /* Цвет линии */
+        }
+        
+        .div_picture_container {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .div_picture_container img {
+            object-fit: fill;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .left_picture_container {
+            box-shadow: 10px 5px 5px rgba(62, 62, 62, 0.374);
+            width: 400px;
+            height: 500px;
+            border: 2px solid #2b2929;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .text_in_form {
+            color: aliceblue;
+        }
+        
+        input {}
+        
+        input[type] {
+            background-color: rgba(208, 190, 206, 1.0);
+            box-shadow: 1px 3px 3px rgba(62, 62, 62, 0.528);
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #000000;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+        }
+        
+        input[type]:focus {
+            border: 2px solid #555;
+        }
+        
+        .form_container {
+            box-shadow: 10px 5px 5px rgba(62, 62, 62, 0.374);
+            display: grid;
+            border: 2px solid #2b2929;
+            padding: 20px;
+            grid-template-rows: repeat(6, auto);
+            justify-items: center;
+            /* Центрируем элементы по горизонтали */
+            align-items: center;
+            /* Центрируем элементы по вертикали */
+            margin-left: 90px;
+            /* Добавляем отступ слева */
+            background-color: rgba(231, 140, 216, 0.24);
+            margin-right: 40px;
+            width: 400px;
+            height: 500px;
+        }
+        
+        .Log_In_BTN {
+            border: 1px solid #383030c0;
+            /* border: 0; */
+            background-color: rgba(180, 100, 172, 0.67);
+            box-shadow: 10px 5px 5px rgba(62, 62, 62, 0.374);
+            height: auto;
+        }
+        
+        .Log_In_BTN:hover {
+            font: #000000;
+            background-color: rgba(212, 80, 109, 0.67);
+        }
+        
+        .Log_In_BTN:active {
+            color: #000000;
+        }
+        
+        header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-content a {
+            text-decoration: none;
+            color: #272626;
+            font-weight: bold;
+        }
+        
+        .header-content .logo {
+            color: #272626;
+            font-size: 1.5rem;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="Header_Grid">
+            <div class="Sing_In_window">
+                <a href="index.html">Главное меню</a>
+            </div>
+            <div class="Plus_window">
+                <div class="Header_Oval"></div>
+                <!-- Значёк плюса ебать -->
+            </div>
+
+
+        </div>
+
+    </header>
+
+
+    <main>
+        <div class="registration_form">
+            <div class="left_picture_container">
+                <div class="div_picture_container">
+                    <img src="Tgr6rF0gываываыC8Q.png">
+                </div>
+
+            </div>
+            <div class="form_container">
+                <p class="text_in_form">Рецепт</p>
+
+                <div class="reigistration_form_samll_window input_mail">
+
+                    <input type="text" id="nickname" name="nickname" value="Название" />
+
+                </div>
+
+                <div class="reigistration_form_samll_window input_mail">
+
+                    <input type="text" id="nickname" name="nickname" value="Ингредиенты" />
+
+                </div>
+                <div class="reigistration_form_samll_window input_mail">
+
+                    <input type="text" id="nickname" name="nickname" value="nickname" />
+
+                </div>
+                <div class="reigistration_form_samll_window input_mail">
+
+                    <input type="text" id="nickname" name="nickname" value="nickname" />
+
+                </div>
+
+
+
+                <div class="Log_In">
+                    <button class="Log_In_BTN" onclick="redirectToAnotherPage()"><p class="text_in_form">Сохранить</p></button>
+                </div>
+
+                <script>
+                    function redirectToAnotherPage() {
+
+                        var nextPageFileName = "post.html";
+
+                        window.location.href = nextPageFileName;
+                    }
+                </script>
+
+
+            </div>
+
+        </div>
+
+
+
+
+    </main>
+
+
+
+    <footer>
+        <div class="triangle_bottom"></div>
+    </footer>
+</body>
+
+</html>
