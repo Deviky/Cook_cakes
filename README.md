@@ -6,4 +6,5 @@ Cook Cakes - сайт для поиска рецепта вкусного дес
 - JPA
 - MySQL Driver
 - Lombok
+
 Для запуска проекта используется команда: java -jar ./target/App-1.0-SNAPSHOT-jar-with-dependencies.jar com.idm.Cook_cakes
