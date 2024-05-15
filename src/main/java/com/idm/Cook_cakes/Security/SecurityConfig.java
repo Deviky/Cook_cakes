@@ -2,7 +2,7 @@ package com.idm.Cook_cakes.Security;
 
 
 
-import com.idm.Cook_cakes.Services.UserDetailsServiceImpl;
+import com.idm.Cook_cakes.Services.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfig implements WebMvcConfigurer {
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private MyUserDetailsServiceImpl userDetailsService;
 
 
     @Bean

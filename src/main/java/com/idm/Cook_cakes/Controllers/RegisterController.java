@@ -2,7 +2,7 @@ package com.idm.Cook_cakes.Controllers;
 
 import com.idm.Cook_cakes.Models.MyUser;
 import com.idm.Cook_cakes.Services.MyUserService;
-import com.idm.Cook_cakes.Services.UserDetailsServiceImpl;
+import com.idm.Cook_cakes.Services.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +17,7 @@ public class RegisterController {
     @Autowired
     private MyUserService userService;
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private MyUserDetailsServiceImpl userDetailsService;
 
     @GetMapping("")
     public String auth(Model model){

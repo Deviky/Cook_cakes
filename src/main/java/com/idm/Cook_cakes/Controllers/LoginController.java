@@ -2,7 +2,7 @@ package com.idm.Cook_cakes.Controllers;
 
 import com.idm.Cook_cakes.Models.MyUser;
 import com.idm.Cook_cakes.Services.MyUserService;
-import com.idm.Cook_cakes.Services.UserDetailsServiceImpl;
+import com.idm.Cook_cakes.Services.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private MyUserDetailsServiceImpl userDetailsService;
     @Autowired
     private MyUserService userService;
     @PostMapping("/auth/submitlog")

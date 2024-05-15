@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class UserDetailsImpl implements UserDetails {
+public class MyUserDetailsImpl implements UserDetails {
     private MyUser user;
-    public UserDetailsImpl(MyUser user){
+    public MyUserDetailsImpl(MyUser user){
         this.user = user;
     }
 
