@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -17,7 +15,6 @@ public class Post {
     String title;
     String description;
     String img;
-    int likes;
     int servings;
     int prepTime;
     int cookTime;
@@ -27,13 +24,4 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     MyUser user;
-
-    @ManyToMany
-    @JoinTable(
-            name = "post_likes",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_liked_id")
-    )
-    private List<MyUser> likedByUsers;
-
 }

@@ -493,17 +493,14 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
             <div class="profile-image">
 
-                <img src="https://sopranoclub.ru/images/130-samyh-krasivyh-foto-devochek/file53616.jpeg" alt="">
+                <img src="https://cdn-icons-png.flaticon.com/512/9703/9703030.png" alt="">
 
             </div>
 
             <div class="profile-user-settings">
 
-                <h1 class="profile-user-name">Den_princess</h1>
+                <h1 class="profile-user-name" th:text="${name}"></h1>
 
-                <button class="btn profile-edit-btn">Редактировать профиль</button>
-
-                <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
 
             </div>
@@ -511,7 +508,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
             <div class="profile-stats">
 
                 <ul>
-                    <li><span class="profile-stat-count">164</span> posts</li>
+                    <li><span class="profile-stat-count" th:text="${postCount}"></span> posts</li>
                     <!-- <li><span class="profile-stat-count">188</span> followers</li>
                     <li><span class="profile-stat-count">206</span> following</li> -->
                 </ul>
@@ -520,7 +517,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
             <div class="profile-bio">
 
-                <p><span class="profile-real-name">Den</span> Я люблю готовить</p>
+                <p th:text=" 'О себе: ' + ${about}"></p>
 
             </div>
 
@@ -538,230 +535,22 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
         <div class="gallery">
 
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+            <div class="gallery-item" tabindex="0" th:if="${not #lists.isEmpty(posts)}" th:each="post : ${posts}">
+                <h2 class="image-title" th:text="${post.title}">Тортик</h2>
+                <img th:src="'/images/' + ${post.img}" class="gallery-image" alt="">
 
                 <div class="gallery-item-info">
-
                     <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
+                        <button th:onclick="'window.location.href=\'/post/' + ${post.id} + '\''" class="view-btn">Посмотреть</button>
+                        <button th:onclick="'window.location.href=\'/update/' + ${post.id} + '\''"  class="view-btn">Редактировать</button>
+                        <form th:unless="${isAdd}" th:action="@{'/update/delete/'+ ${post.id}}" th:object="${post}" method="post">
+                            <button type="submit" class="view-btn" >Удалить</button>
+                        </form>
                     </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
                 </div>
 
             </div>
 
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Gallery</span><i class="fas fa-clone" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1505058707965-09a4469a87e4?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-                        <!-- <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fas fa-comment" aria-hidden="true"></i> 0</li> -->
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-
-            </div>
-
-            <div class="gallery-item" tabindex="0">
-                <h2 class="image-title">Тортик</h2>
-                <img src="https://images.unsplash.com/photo-1423012373122-fff0a5d28cc9?w=500&h=500&fit=crop" class="gallery-image" alt="">
-
-                <div class="gallery-item-type">
-
-                    <!-- <span class="visually-hidden">Video</span><i class="fas fa-video" aria-hidden="true"></i> -->
-
-                </div>
-
-                <div class="gallery-item-info">
-
-                    <ul>
-                        <button class="like-button" aria-label="like"><i class="fas fa-heart" aria-hidden="true"></i></button>
-                        <button class="view-btn" onclick="window.location.href='post.html'">Посмотреть</button>
-
-                    </ul>
-                    <button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button>
-                </div>
-            </div>
             <script>
                 const likeButtons = document.querySelectorAll('.like-button');
 
@@ -787,9 +576,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
             </script>
         </div>
         <!-- End of gallery -->
-
-
-
     </div>
     <!-- End of container -->
 

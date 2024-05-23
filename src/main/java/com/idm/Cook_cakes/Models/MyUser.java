@@ -18,6 +18,7 @@ public class MyUser {
     String nickname;
     String username;
     String password;
+    String about;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Post> posts;
 

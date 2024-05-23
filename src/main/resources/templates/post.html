@@ -471,7 +471,7 @@
         <script>
             function redirectToAnotherPage() {
 
-                var nextPageFileName = "index.html";
+                var nextPageFileName = "/";
 
 
                 window.location.href = nextPageFileName;
@@ -481,11 +481,11 @@
         <div class="content">
 
             <figure>
-                <img src="https://kartinki.pics/uploads/posts/2021-07/1626136963_44-kartinkin-com-p-klubnichnii-pirog-iz-pesochnogo-testa-yeda-52.jpg" alt="Cake">
-                <figcaption>Photo by Den</figcaption>
+                <img th:src="@{'/images/' + ${post.img}}" alt="Cake">
+                <figcaption th:text="${post.user.getNickname()}"></figcaption>
             </figure>
 
-            <h1>Cake <button id="likeButton" onclick="toggleLike()">&#10084</button><button class="view-btn" onclick="window.location.href='Posting.html'">Редактировать</button></h1>
+            <h1 th:text="${post.title}"></h1>
 
 
 
@@ -516,85 +516,43 @@
         }
     </script>
     <section id="recipe">
-        <h1>Cake</h1>
+        <h1 th:text="${post.title}">Cake</h1>
         <div class="description">
-            <p>Этот быстрый и вкусный пирог - идеальный способ использовать изобилие свежих фруктов летом!</p>
-            <p>Не имеете руки для выпечки? Не беспокойтесь! Вы сможете приготовить этот восхитительный пирог за мгновение с помощью готового пирожного теста из магазина. </p>
+            <p th:text="${post.description}"></p>
         </div>
 
         <div class="recipe_details">
             <ul>
-                <li><span>Servings</span>4</li>
-                <li><span>Prep Time</span>5 min</li>
-                <li><span>Cook Time</span>25 min</li>
-                <li><span>Total Time</span>30 min</li>
+                <li><span>Порций</span><span th:text="${post.servings}"></span></li>
+                <li><span>Подготовка</span><span th:text="${post.prepTime} + ' мин'"></span></li>
+                <li><span>Приготовление</span><span th:text="${post.cookTime} + ' мин'"></span></li>
+                <li><span>Всего времени</span><span th:text="${totalTime} + ' мин'"></span></li>
             </ul>
         </div>
 
         <div class="recipe-content">
             <div class="ing-list">
-                <h2>The Ingredients</h2>
+                <h2>Ингредиенты</h2>
                 <div class="ingredients">
-                    <label class="container">8 что-то
-                        <input type="checkbox" checked="checked">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">2 что то
+                    <label class="container" th:each="ingredient : ${ingredients}">
+                        <p th:text="${ingredient}"></p>
                         <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">2 что то
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">2 что то
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">1/2 денчика
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">1/2 пиыв
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">1/8 максика
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">1 ева
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label> <label class="container">1 мяу
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
+                        <span class="checkmark" ></span>
                     </label>
                 </div>
-                <p class="variation"><span>Variation:</span> Если че в магазине купите пирог готовый, не тупите</p>
+                <p class="variation"><span>Вариации:</span></p>
+                <p class="variation"th:text="${post.variation}"></p>
                 <figure>
-                    <img src="https://receptikk.ru/800/600/https/images.squarespace-cdn.com/content/59876b7417bffc6a271eba33/1507830198859-6UZGY91TWY8SQX9KS5GW/Raspberry+pie_1.jpg">
-
-                    <figcaption>Photo by Max</figcaption>
+                    <img th:src="@{'/images/' + ${post.img}}" alt="Cake">
+                    <figcaption th:text="${post.user.getNickname()}"></figcaption>
                 </figure>
 
             </div>
 
             <div class="recipe-list">
-                <h2>The Process</h2>
+                <h2>Рецепт</h2>
                 <ol class="instructions">
-                    <li>Разогрейте духовку до 200°C. </li>
-                    <li>Разверните слоеное тесто на противне, покрытом пергаментной бумагой.
-                        <ul>
-                            <li>Нарежьте персики тонкими ломтиками и выложите их в центр теста, оставляя примерно 5 см от краев.</li>
-                            <li>В миске смешайте сахар, муку, сок лимона, корицу и имбирь. Посыпьте эту смесь персиками.</li>
-                            <li>Аккуратно сложите края теста над начинкой, чтобы сформировать края пирога. </li>
-                            <li>Смажьте верхнюю часть теста взбитым яйцом. </li>
-                            <li>Печьте пирог в предварительно разогретой духовке около 25-30 минут, или пока тесто не станет золотистым и начинка не будет пузыриться и слегка карамелизироваться.</li>
-                        </ul>
-                    </li>
-                    <li>Дайте пирогу немного остыть перед подачей. Подавайте его теплым или в прохладе, посыпанным сахарной пудрой или сопровожденным шариком мороженого. Приятного аппетита! </li>
-
+                    <li th:each="theProcess : ${theProcesses}" th:text="${theProcess}"></li>
                 </ol>
             </div>
         </div>
